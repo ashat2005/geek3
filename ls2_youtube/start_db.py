@@ -11,6 +11,8 @@ class CustomDB:
             first_name VARCHAR(255),
             last_name VARCHAR(255),
             id INTEGER,
+            phone VARCHAR(100),
             created VARCHAR(100)
             );""")
+        cursor.execute("ALTER TABLE users ADD  COLUMN phone VARCHAR(100);")
         self.connect.commit()

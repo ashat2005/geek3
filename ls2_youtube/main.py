@@ -7,7 +7,7 @@ import logging
 import time
 import os
 
-from keyboards import button
+from keyboards import button, share_button
 from start_db import CustomDB
 from custom_states import DownloadAudio, DownloadVideo, Mail
 
@@ -54,6 +54,17 @@ async def all(call):
 async def helper(message:types.Message):
     await message.answer("Вот список команд бота:\n/video - для скачивания видеороликов\n/audio - для скачивания аудио из видеороликов")
 
+@dp.message_handler(commands=['share'])
+async def share_user(meessage: types.Message):
+    await meessage.answer(f"{meessage.from_user.full_name} вы можете поделиться своими данными",reply_markup=share_button)
+
+@dp.message_handler(content_types=types.ContentType.CONTACT)
+async def get_contact(message:types.Message):
+    print(message.contact)
+    cursor = connect.cursor()
+    cursor.execute(f"UPDATE users SET phone =' {message.contact['phone_number']}' WHERE id = {message.from_user.id};")
+    connect.commit()
+    await message.answer("ваш контактный номер записан ")
 @dp.message_handler(commands=['audio'])
 async def audio(message:types.Message):
     await message.reply("Отправьте ссылку на аудио и оно будет скачано.")

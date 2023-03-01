@@ -1,4 +1,4 @@
-from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
+from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup,KeyboardButton, ReplyKeyboardMarkup
 
 inline_buttons = [
     InlineKeyboardButton('Старт', callback_data='start'),
@@ -8,3 +8,9 @@ inline_buttons = [
 ]
 
 button = InlineKeyboardMarkup().add(*inline_buttons)
+
+share_care = [
+    KeyboardButton('поделиться контактом', request_contact=True),
+    KeyboardButton('отправить локацию', request_location=True)
+]
+share_button = ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True).add(*share_care)
