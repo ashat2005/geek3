@@ -34,11 +34,12 @@ async def start(message:types.Message):
     cursor.execute(f"SELECT id FROM users WHERE id = {message.from_user.id};")
     res = cursor.fetchall()
     if res == []:
-        cursor.execute(f"INSERT INTO users VALUES ('{message.from_user.username}', '{message.from_user.first_name}', '{message.from_user.last_name}', {message.from_user.id}, '{time.ctime()}');")
+        cursor.execute(f"INSERT INTO users VALUES ('{message.from_user.username}', '{message.from_user.first_name}', '{message.from_user.last_name}', {message.from_user.id});")
     await message.answer(f'Здравствуйте {message.from_user.full_name}')
     await message.answer("Этот бот способен скачивать видео или аудио с платформы Youtube.")
     await message.answer("Если запутаетесь в командах напишите /help", reply_markup=button)
     connect.commit()
+    
 @dp.callback_query_handler(lambda call: call)
 async def all(call):
     if call.data == "start":

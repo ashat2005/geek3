@@ -10,7 +10,7 @@ class CustomDB:
             username VARCHAR(255),
             first_name VARCHAR(255),
             last_name VARCHAR(255),
-            id INTEGER,
+            id INTEGER, 
             phone VARCHAR(100),
             created VARCHAR(100)
             );""")
